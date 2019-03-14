@@ -1,0 +1,100 @@
+akka.hpc2n.umu.se
+
+
+Example1:sum
+************
+p-bc9901 [~/pfs/Example]$ ./sum.sh
+
+Example2:hello
+**************
+p-bc9901 [~/pfs/Example]$ mpicc hello.c -o hello
+p-bc9901 [~/pfs/Example]$ mpirun -np 8 hello
+Hello world, I am: 1  of the nodes: 8
+Hello world, I am: 0  of the nodes: 8
+Hello world, I am: 7  of the nodes: 8
+Hello world, I am: 5  of the nodes: 8
+Hello world, I am: 2  of the nodes: 8
+Hello world, I am: 3  of the nodes: 8
+Hello world, I am: 4  of the nodes: 8
+Hello world, I am: 6  of the nodes: 8
+p-bc9901 [~/pfs/Example]$
+
+Change path
+***********
+1) p-bc9901 [~/pfs/Public/edu/5DV050/Assignment1]$ module load openmpi/gcc
+2) 
+
+p-bc9901 [~/pfs/Public/edu/5DV050/Assignment1]$ mpicc prefixsum.c -o prefixsum
+p-bc9901 [~/pfs/Public/edu/5DV050/Assignment1]$ mpirun -np 8 prefixsum
+******************
+ Node ID = 0.
+Content of result buffer --> 0
+Content of message buffer --> 28
+******************
+ Node ID = 1.
+Content of result buffer --> 1
+Content of message buffer --> 28
+******************
+ Node ID = 2.
+Content of result buffer --> 3
+Content of message buffer --> 28
+******************
+ Node ID = 3.
+Content of result buffer --> 6
+Content of message buffer --> 28
+******************
+ Node ID = 4.
+Content of result buffer --> 10
+Content of message buffer --> 28
+******************
+ Node ID = 5.
+Content of result buffer --> 15
+Content of message buffer --> 28
+******************
+ Node ID = 6.
+Content of result buffer --> 21
+Content of message buffer --> 28
+******************
+ Node ID = 7.
+Content of result buffer --> 28
+Content of message buffer --> 28
+******************
+
+1) Implement the hypercube pre?x sum algorithm
+Submit file execution
+*********************
+
+p-bc9901 [/pfs/nobackup/home/s/stud10/Assignment1_5dv050]$ qsub prefixsum_submitfile.sh
+910140.p-mn01.hpc2n.umu.se
+
+
+2) Verify the correctness of your implementation by comparing against the corresponding
+MPI function MPI_Scan
+
+p-bc9901 [~/pfs/Assignment1_5dv050]$ mpicc mpiscan.c -o mpiscan
+p-bc9901 [~/pfs/Assignment1_5dv050]$ mpirun -np 8 mpiscan
+After Prefix Reduction My rank is  0 , My Value is 0
+After Prefix Reduction My rank is  1 , My Value is 1
+After Prefix Reduction My rank is  2 , My Value is 3
+After Prefix Reduction My rank is  3 , My Value is 6
+After Prefix Reduction My rank is  4 , My Value is 10
+After Prefix Reduction My rank is  5 , My Value is 15
+After Prefix Reduction My rank is  6 , My Value is 21
+After Prefix Reduction My rank is  7 , My Value is 28
+p-bc9901 [~/pfs/Assignment1_5dv050]$
+
+Check data file
+
+OR
+
+p-bc9901 [~/pfs/Assignment1_5dv050]$ qsub mpiscan.sh
+
+3) Analyze the parallel runtime of your implementation analytically.
+
+4) Experiments
+
+914129.p-mn01.hpc2n.umu.se - 16 nodes - no output
+914130.p-mn01.hpc2n.umu.se - 2 nodes
+ 
+
+
